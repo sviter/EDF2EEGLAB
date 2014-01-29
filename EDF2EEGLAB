@@ -17,7 +17,7 @@ ev = [header.annotation.event' cellstr(num2str(header.annotation.starttime))];
 [ALLEEG EEG CURRENTSET ALLCOM] = eeglab;
 %import data to EELAB
 %set name is test -> fix to imput file name
-EEG = pop_importdata('dataformat','array','nbchan',0,'data','data','setname','test','srate',1000,'pnts',0,'xmin',0);
+EEG = pop_importdata('dataformat','array','nbchan',0,'data','data','setname','test','srate',header.samplerate(1),'pnts',0,'xmin',0);
 [ALLEEG EEG CURRENTSET] = pop_newset(ALLEEG, EEG, 0,'gui','off'); 
 EEG = eeg_checkset( EEG );
 %import events names to EEGLAB
@@ -25,9 +25,8 @@ EEG = pop_importevent( EEG, 'event',ev,'fields',{'type' 'latency'},'timeunit',1,
 %rewrite lanency and init_time fields with data fron ReadEDF's header
 for i = 1:length(header.annotation.starttime)
     %latency must be multiplied by semple rate
-    %FIXME: 1000->srate
-    EEG.event(1,i).latency = header.annotation.starttime(i)*1000;
-    ALLEEG.event(1,i).latency = header.annotation.starttime(i)*1000;
+    EEG.event(1,i).latency = header.annotation.starttime(i)*header.samplerate(1);
+    ALLEEG.event(1,i).latency = header.annotation.starttime(i)*header.samplerate(1);
     EEG.event(1,i).init_time = header.annotation.starttime(i);
     ALLEEG.event(1,i).init_time = header.annotation.starttime(i);
 end
