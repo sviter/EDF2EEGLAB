@@ -1,9 +1,10 @@
+%comment string below if you don't want to restore default path
 restoredefaultpath
-%указать путь к папке с EEGLAB
+%set EEGLAB path
 addpath D:\eeg\eeglab13_1_1b
-%указать путь к папке с файлом ReadEDF.m
+%set ReadEDF.m path
 addpath C:\Users\from_top_to_toe\Downloads\ReadSaveEDF
-%указать EDF файл для открытия
+%set .edf file for reading
 [data, header] = ReadEDF('D:\eeg\N400 19cap.edf');
 %prepere data for EEGLAB
 data=cell2mat(data);
